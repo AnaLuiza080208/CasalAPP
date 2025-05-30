@@ -13,11 +13,16 @@ build-docker:
 
 start-docker:
 	docker run -it --rm \
-	  -p 19006:19006 \
-	  -p 19000:19000 \
-	  -p 8081:8081 \
-	  -v "$$(pwd)/$(APP_DIR)":/app \
-	  $(IMAGE_NAME) \
+		-v "$$(pwd)/$(APP_DIR)":/app \
+		-w /app \
+		-p 19000:19000 \
+		-p 19001:19001 \
+		-p 19002:19002 \
+		node:18-alpine sh -c "\
+			apk add --no-cache bash git && \
+			npm install && \
+			npx expo install && \
+			npx expo start --tunnel"
 	
 
 
@@ -47,3 +52,7 @@ reinstall:
 	cd $(APP_DIR) && \
 	rm -rf node_modules package-lock.json && \
 	npm install
+
+git:
+	git config --global user.email "ana.luiza.kauffman@gmail.com"
+	git config --global user.name "Ana"
