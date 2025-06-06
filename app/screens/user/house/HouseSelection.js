@@ -173,10 +173,6 @@ const HouseSelection = () => {
     }
   };
   
-  
-  
-
-  
     return (
   <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <KeyboardAvoidingView
